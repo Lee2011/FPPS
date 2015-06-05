@@ -22,19 +22,19 @@ object week2 {
    */
   
   def gcd(a: Int, b: Int): Int =
-    if ( b == 0 ) a else gcd(b, a % b )           //> gcd: (a: Int, b: Int)Int
+    if ( b == 0 ) a else gcd(b, a % b )           //> gcd: (a#79458: Int#1123, b#79459: Int#1123)Int#1123
     
-  gcd(14, 21)                                     //> res0: Int = 7
+  gcd(14, 21)                                     //> res0: Int#1123 = 7
   
   def factorial(n: Int): Int =
-    if ( n == 0 ) 1 else n * factorial(n-1)       //> factorial: (n: Int)Int
+    if ( n == 0 ) 1 else n * factorial(n-1)       //> factorial: (n#79705: Int#1123)Int#1123
   
-  factorial(0)                                    //> res1: Int = 1
+  factorial(0)                                    //> res1: Int#1123 = 1
   
   // Design a tail recursive version of factorial.
   def factorialtail(n: Int, m: Int = 1): Int =
     if ( n == 0 ) m * 1 else factorialtail(n-1, m * n)
-                                                  //> factorialtail: (n: Int, m: Int)Int
+                                                  //> factorialtail: (n#79711: Int#1123, m#79712: Int#1123)Int#1123
   
-  factorialtail(0)                                //> res2: Int = 1
+  factorialtail(0)                                //> res2: Int#1123 = 1
 }
