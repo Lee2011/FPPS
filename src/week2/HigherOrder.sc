@@ -12,19 +12,19 @@ object HigherOrder {
    
   def sumInts(a: Int, b: Int): Int =
 		if (a > b) 0 else a + sumInts(a + 1, b)
-                                                  //> sumInts: (a#119202: Int#1123, b#119203: Int#1123)Int#1123
+                                                  //> sumInts: (a: Int, b: Int)Int
 
-  def cube(x: Int): Int = x * x * x               //> cube: (x#119451: Int#1123)Int#1123
+  def cube(x: Int): Int = x * x * x               //> cube: (x: Int)Int
   
   def sumCubes(a: Int, b: Int): Int =
-    if (a > b) 0 else cube(a) + sumCubes(a + 1, b)//> sumCubes: (a#119455: Int#1123, b#119456: Int#1123)Int#1123
+    if (a > b) 0 else cube(a) + sumCubes(a + 1, b)//> sumCubes: (a: Int, b: Int)Int
 
   def factorial(n: Int): Int =
-    if ( n == 0 ) 1 else n * factorial(n-1)       //> factorial: (n#119462: Int#1123)Int#1123
+    if ( n == 0 ) 1 else n * factorial(n-1)       //> factorial: (n: Int)Int
 
 	def sumFactorials(a: Int, b: Int): Int =
 		if (a > b) 0 else factorial(a) + sumFactorials(a + 1, b)
-                                                  //> sumFactorials: (a#119468: Int#1123, b#119469: Int#1123)Int#1123
+                                                  //> sumFactorials: (a: Int, b: Int)Int
 
   /*
    * Summing with Higher-Order Functions:
@@ -34,17 +34,16 @@ object HigherOrder {
 
   def sum(f: Int => Int, a: Int, b: Int): Int =
     if (a > b) 0
-    else f(a) + sum(f, a + 1, b)                  //> sum: (f#119475: Int#1123 => Int#1123, a#119476: Int#1123, b#119477: Int#112
-                                                  //| 3)Int#1123
+    else f(a) + sum(f, a + 1, b)                  //> sum: (f: Int => Int, a: Int, b: Int)Int
     
-  def sumIntsV2(a: Int, b: Int) = sum(id, a, b)   //> sumIntsV2: (a#119484: Int#1123, b#119485: Int#1123)Int#1123
-  def sumCubesV2(a: Int, b: Int) = sum(cube, a, b)//> sumCubesV2: (a#119489: Int#1123, b#119490: Int#1123)Int#1123
+  def sumIntsV2(a: Int, b: Int) = sum(id, a, b)   //> sumIntsV2: (a: Int, b: Int)Int
+  def sumCubesV2(a: Int, b: Int) = sum(cube, a, b)//> sumCubesV2: (a: Int, b: Int)Int
   def sumFactorialsV2(a: Int, b: Int) = sum(fact, a, b)
-                                                  //> sumFactorialsV2: (a#119493: Int#1123, b#119494: Int#1123)Int#1123
+                                                  //> sumFactorialsV2: (a: Int, b: Int)Int
   
-  def id(x: Int): Int = x                         //> id: (x#119486: Int#1123)Int#1123
+  def id(x: Int): Int = x                         //> id: (x: Int)Int
   def fact(x: Int): Int = if (x == 0) 1 else fact(x - 1)
-                                                  //> fact: (x#119495: Int#1123)Int#1123
+                                                  //> fact: (x: Int)Int
   
   /*
    * Anonymous Functions:
@@ -52,7 +51,7 @@ object HigherOrder {
    *   Sometimes it is tedious to have to define (and name) these functions using def.
    * Compare to strings: We do not need to define a string using def. Instead of
    *   def str = ”abc”; println(str)
-   * We can directly write
+   * We can directly writeßß
    *   println(”abc”)
    * because strings exist as literals. Analogously we would like function literals, which let us write a function without giving it a name.
    * These are called anonymous functions.
@@ -63,7 +62,7 @@ object HigherOrder {
    *   Example: A function that raises its argument to a cube:
    */
   
-  (x: Int) => x * x * x                           //> res0: Int#1123 => Int#1123 = <function1>
+  (x: Int) => x * x * x                           //> res0: Int => Int = <function1>
   
   /*
    * Here, (x: Int) is the parameter of the function, and x * x * x is it’s body.
@@ -71,7 +70,7 @@ object HigherOrder {
    * If there are several parameters, they are separated by commas:
    */
    
-  (x: Int, y: Int) => x + y                       //> res1: (Int#1123, Int#1123) => Int#1123 = <function2>
+  (x: Int, y: Int) => x + y                       //> res1: (Int, Int) => Int = <function2>
   
   /*
    * Anonymous Functions are Syntactic Sugar:
@@ -84,7 +83,7 @@ object HigherOrder {
   // Summation with Anonymous Functions
   
   def sumIntsV3(a: Int, b: Int) = sum(x => x, a, b)
-                                                  //> sumIntsV3: (a#119509: Int#1123, b#119510: Int#1123)Int#1123
+                                                  //> sumIntsV3: (a: Int, b: Int)Int
   def sumCubesV3(a: Int, b: Int) = sum(x => x * x * x, a, b)
-                                                  //> sumCubesV3: (a#119513: Int#1123, b#119514: Int#1123)Int#1123
+                                                  //> sumCubesV3: (a: Int, b: Int)Int
 }
