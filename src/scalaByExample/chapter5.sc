@@ -201,5 +201,17 @@ object chapter5 {
 	}                                         //> sumV7: (f: Int => Int)(a: Int, b: Int)Int
 	
 	sumV7(x => x * x)(1, 10)                  //> res6: Int = 385
-	
+
+  /* ********************************
+   * Summary
+   * ********************************/
+   
+  /*
+   * We have seen in the previous chapter that functions are essential abstractions, because they permit us to introduce general methods of
+   * computing as explicit, named elements in our programming language. The present chapter has shown that these abstractions can be combined by
+   * higher-order functions to create further abstractions. As programmers, we should look out for opportunities to abstract and to reuse.
+   * The highest possible level of abstraction is not always the best, but it is important to know abstraction techniques, so that one can
+   * use abstractions where appropriate.
+   */
+
 }
