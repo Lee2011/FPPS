@@ -146,15 +146,60 @@ object chapter5 {
   sumSquaresV5(1, 10) + sumPowersOfTwoV5(10, 20)  //> res3: Int = 2096513
   sumSquaresV6(1, 10) + sumPowersOfTwoV6(10, 20)  //> res4: Int = 2096513
   
+  // How are function-returning functions applied? As an example, in the expression
+  sumV5(x => x * x)(1, 10)                        //> res5: Int = 385
+  // the function sum is applied to the squaring function (x => x * x). The resulting function is then applied to the second argument list,(1, 10).
+
+  /*
+   * This notation is possible because function application associates to the left. That is, if args1 and args2 are argument lists, then
+   *
+   *  f (args1)(args2) is equivalent to (f (args1))(args2)
+   *
+   * In our example, sum(x => x * x)(1, 10) is equivalent to the following expression:
+   *
+   *  (sum(x => x * x))(1, 10)
+   */
    
+  /*
+   * The style of function-returning functions is so useful that Scala has special syntax for it. For instance, the next definition of
+   * sum is equivalent to the previous one, but is shorter:
+   */
    
+  def sumV6(f: Int => Int)(a: Int, b: Int): Int =
+    if (a > b) 0 else f(a) + sumV6(f)(a + 1, b)   //> sumV6: (f: Int => Int)(a: Int, b: Int)Int
    
+  /*
+   * Generally, a curried function definition
+   *    def f (args1) ... (argsn) = E
+   * where n > 1 expands to
+   *    def f (args1) ... (argsn−1) = { def g (argsn) = E ; g }
+   * where g is a fresh identifier. Or, shorter, using an anonymous function:
+   *    def f (args1) ... (argsn−1) = ( argsn ) => E .
+   * Performing this step n times yields that
+   *    def f (args1) ... (argsn) = E
+   * is equivalent to
+   *    def f = (args1) => ... => (argsn) => E .
+   * Or, equivalently, using a value definition:
+   *    val f = (args1) => ... => (argsn) => E .
+   *
+   * This style of function definition and application is called currying after its promoter, Haskell B. Curry, a logician of the 20th century,
+   * even though the idea goes back further to Moses Schönfinkel and Gottlob Frege.
+   *
+   * The type of a function-returning function is expressed analogously to its parameter list. Taking the last formulation of sum as an example,
+   * the type of sum is (Int => Int) => (Int, Int) => Int. This is possible because function types associate to the right. I.e.
+   *
+   *    T1 => T2 => T3 is equivalent to T1 => (T2 => T3)
+   */
    
-   
-   
-   
-   
-   
-   
-   
+  // The sum function uses a linear recursion. Can you write a tail-recursive one?
+  def sumV7(f: Int => Int)(a: Int, b: Int): Int = {
+    def iter(a: Int, result: Int): Int = {
+			if (a > b) result
+			else iter(a + 1, f(a) + result)
+		}
+		iter(a, 0)
+	}                                         //> sumV7: (f: Int => Int)(a: Int, b: Int)Int
+	
+	sumV7(x => x * x)(1, 10)                  //> res6: Int = 385
+	
 }
