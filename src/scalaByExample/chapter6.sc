@@ -27,6 +27,19 @@ object chapter6 {
 
   //by replacing contains by its body in class EmptySet
   new EmptySet contains 1                         //> res4: Boolean = false
+
+  val t1 = new NonEmptySet(7, new EmptySet(), new EmptySet())
+                                                  //> t1  : scalaByExample.NonEmptySet = {.7.}
+  t1.contains(7)                                  //> res5: Boolean = true
+  t1.contains(5)                                  //> res6: Boolean = false
+
+  val t2 = t1.incl(5)                             //> t2  : scalaByExample.IntSet = {{.5.}7.}
+  t2.contains(5)                                  //> res7: Boolean = true
+  val t3 = t2 incl 9                              //> t3  : scalaByExample.IntSet = {{.5.}7{.9.}}
+  
+  val t4 = t2 incl 19                             //> t4  : scalaByExample.IntSet = {{.5.}7{.19.}}
+
+  val t5 = t4 union t3                            //> t5  : scalaByExample.IntSet = {{.5.}7{.9{.19.}}}
 }
 
 /*
@@ -113,6 +126,7 @@ class Rational(n: Int, d: Int) {
 abstract class IntSet {
   def incl(x: Int): IntSet
   def contains(x: Int): Boolean
+  def union(other: IntSet): IntSet
 }
 
 /*
@@ -127,6 +141,7 @@ abstract class IntSet {
 trait IntSetTrait {
   def incl(x: Int): IntSet
   def contains(x: Int): Boolean
+  def union(other: IntSet): IntSet
 }
 
 /*
@@ -139,15 +154,23 @@ trait IntSetTrait {
 class EmptySet extends IntSet {
   def contains(x: Int): Boolean = false
   def incl(x: Int): IntSet = new NonEmptySet(x, new EmptySet, new EmptySet)
+  def union(other: IntSet): IntSet = other
+  override def toString = "."
 }
 
 class NonEmptySet(elem: Int, left: IntSet, right: IntSet) extends IntSet {
   def contains(x: Int): Boolean =
     if (x < elem) left contains x
     else if (x > elem) right contains x else true
+    
   def incl(x: Int): IntSet =
     if (x < elem) new NonEmptySet(elem, left incl x, right)
     else if (x > elem) new NonEmptySet(elem, left, right incl x) else this
+
+  def union(other: IntSet): IntSet =
+  	((left union right) union other) incl elem
+
+  override def toString = "{" + left + elem + right + "}"
 }
 
 /*
