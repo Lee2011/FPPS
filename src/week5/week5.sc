@@ -23,8 +23,19 @@ object week5 {
   val nums3 = Nil.::(4).::(3).::(2).::(1)         //> nums3  : List[Int] = List(1, 2, 3, 4)
 
   fruit.head                                      //> res0: String = apples
-  fruit.tail.head                                 //> res1: String = oranges
-  diag3.head                                      //> res2: List[Int] = List(0, 1, 2)
+  fruit.length                                    //> res1: Int = 3
+  fruit.last                                      //> res2: String = pears
+  fruit.init                                      //> res3: List[String] = List(apples, oranges)
+  fruit take 2                                    //> res4: List[String] = List(apples, oranges)
+  fruit drop 1                                    //> res5: List[String] = List(oranges, pears)
+  fruit(1)                                        //> res6: String = oranges
+  fruit.reverse                                   //> res7: List[String] = List(pears, oranges, apples)
+  fruit.updated(1, "bananna")                     //> res8: List[String] = List(apples, bananna, pears)
+  fruit ++ fruit.reverse                          //> res9: List[String] = List(apples, oranges, pears, pears, oranges, apples)
+  fruit indexOf "apples"                          //> res10: Int = 0
+  fruit contains "pears"                          //> res11: Boolean = true
+  fruit.tail.head                                 //> res12: String = oranges
+  diag3.head                                      //> res13: List[Int] = List(0, 1, 2)
   //empty.head
 
   /*
@@ -52,5 +63,5 @@ object week5 {
   }                                               //> insert: (x: Int, xs: List[Int])List[Int]
   
   val sortNums = List(7, 3, 9, 2)                 //> sortNums  : List[Int] = List(7, 3, 9, 2)
-  isort(sortNums)                                 //> res3: List[Int] = List(2, 3, 7, 9)
+  isort(sortNums)                                 //> res14: List[Int] = List(2, 3, 7, 9)
 }
